@@ -8,12 +8,45 @@ default_args = {
     'retries': 1,
 }
 
-def stream_data():
+def get_data():
     import json
     import requests
     res = requests.get("https://randomuser.me/api/")
     res = res.json()
     res = res['results'][0]
+    # print(json.dumps(res, indent=3))
+
+    return res
+
+def format_data(res):
+    data = {}
+    location = res['location']
+    data['first_name'] = res['name']['first']
+    data['last_name'] = res['name']['last']
+    data['gender'] = res['gender']
+    data['address'] = f"{location['street']['number']} {location['street']['name']}, {location['city']}, {location['state']}, {location['country']} - {location['postcode']}"
+    data['username'] = res['login']['username']
+    data['postcode'] = location['postcode']
+    data['dob'] = res['dob']['date'][:10]  # Extract YYYY-MM-DD
+    data['registered_date'] = res['registered']['date'][:10]  # Extract YYYY-MM-DD
+    data['phone'] = res['phone']
+    data['picture'] = res['picture']['medium']
+    data['location'] = {
+        "street": f"{location['street']['number']} {location['street']['name']}",
+        "city": location['city'],
+        "state": location['state'],
+        "country": location['country'],
+        "postcode": location['postcode'],
+        "latitude": location['coordinates']['latitude'],
+        "longitude": location['coordinates']['longitude']
+    }
+
+    return data
+
+def stream_data():
+    import json
+    res = get_data()
+    res = format_data(res)
     print(json.dumps(res, indent=3))
 
 
