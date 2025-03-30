@@ -12,7 +12,9 @@ def stream_data():
     import json
     import requests
     res = requests.get("https://randomuser.me/api/")
-    res.json()
+    res = res.json()
+    res = res['results'][0]
+    print(res)
 
 
 with DAG('user_automation',
@@ -25,3 +27,5 @@ with DAG('user_automation',
         task_id='stream_data_from_api',
         python_callable=stream_data
     )
+
+stream_data()
