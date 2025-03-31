@@ -44,14 +44,15 @@ destination_config ={
 dump_command = [
     'pg_dump',
     '-h', source_config['host'],
-    '-u', source_config['user'],
+    '-U', source_config['user'],
     '-d', source_config['dbname'],
     '-f', 'data_dump.sql',
     '-w' # don't promt for password
 ]
 
-# Set the PGPASSWORD environment variable to avoid password prompt
-subprocess_env = dict(PGPASSWORD=source_config['password'])
+import os
+subprocess_env = os.environ.copy()
+subprocess_env["PGPASSWORD"] = source_config["password"]
 
 # Execute the dump command
 subprocess.run(dump_command, env=subprocess_env, check=True)
