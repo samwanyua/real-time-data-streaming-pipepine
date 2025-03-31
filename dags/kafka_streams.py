@@ -1,4 +1,5 @@
-from datetime import datetime 
+from datetime import datetime
+import uuid 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
@@ -21,33 +22,33 @@ def get_data():
 def format_data(res):
     data = {}
     location = res['location']
+    data['id'] = uuid.uuid4()
     data['first_name'] = res['name']['first']
     data['last_name'] = res['name']['last']
     data['gender'] = res['gender']
-    data['address'] = f"{location['street']['number']} {location['street']['name']}, {location['city']}, {location['state']}, {location['country']} - {location['postcode']}"
+    data['address'] = f"{str(location['street']['number'])} {location['street']['name']}, " \
+                      f"{location['city']}, {location['state']}, {location['country']}"
+    data['post_code'] = location['postcode']
+    data['email'] = res['email']
     data['username'] = res['login']['username']
-    data['postcode'] = location['postcode']
-    data['dob'] = res['dob']['date'][:10]  # Extract YYYY-MM-DD
-    data['registered_date'] = res['registered']['date'][:10]  # Extract YYYY-MM-DD
+    data['dob'] = res['dob']['date']
+    data['registered_date'] = res['registered']['date']
     data['phone'] = res['phone']
     data['picture'] = res['picture']['medium']
-    data['location'] = {
-        "street": f"{location['street']['number']} {location['street']['name']}",
-        "city": location['city'],
-        "state": location['state'],
-        "country": location['country'],
-        "postcode": location['postcode'],
-        "latitude": location['coordinates']['latitude'],
-        "longitude": location['coordinates']['longitude']
-    }
 
     return data
 
 def stream_data():
     import json
+    from kafka import KafkaProducer
+    import time
+
     res = get_data()
     res = format_data(res)
-    print(json.dumps(res, indent=3))
+    # print(json.dumps(res, indent=3))
+    producer = KafkaProducer(bootstrap_servers=["localhost:9092"], max_block_ms=5000)
+
+    producer.send('users_created', json.dumps(res).encode('utf-8'))
 
 
 with DAG('user_automation',
