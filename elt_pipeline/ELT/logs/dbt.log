@@ -1,0 +1,56 @@
+[0m19:53:37.912832 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928c48c190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928acaf9a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928c28be50>]}
+
+
+============================== 19:53:37.916914 | 91e2f72b-f2e7-4a18-8cd2-35923125cc0a ==============================
+[0m19:53:37.916914 [info ] [MainThread]: Running with dbt=1.8.7
+[0m19:53:37.917712 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/home/wanyua/.dbt', 'debug': 'False', 'version_check': 'True', 'log_path': 'logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'invocation_command': 'dbt init', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m19:53:37.928366 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse logging event dictionary. Failed to parse dir field: expected string or bytes-like object.. Dictionary: {'dir': PosixPath('/home/wanyua/.dbt')}
+[0m19:53:37.929266 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m19:53:55.893231 [debug] [MainThread]: Starter project path: /home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/include/starter_project
+[0m19:53:55.898062 [info ] [MainThread]: 
+Your new dbt project "custom_postgres" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m19:53:55.898913 [info ] [MainThread]: Setting up your profile.
+[0m19:54:20.629240 [error] [MainThread]: Encountered an error:
+
+[0m19:54:20.632763 [error] [MainThread]: Traceback (most recent call last):
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/cli/requires.py", line 138, in wrapper
+    result, success = func(*args, **kwargs)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/cli/requires.py", line 101, in wrapper
+    return func(*args, **kwargs)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/cli/main.py", line 470, in init
+    results = task.run()
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/task/init.py", line 347, in run
+    self.setup_profile(profile_name)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/task/init.py", line 263, in setup_profile
+    self.create_profile_from_target(adapter, profile_name=profile_name)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/task/init.py", line 180, in create_profile_from_target
+    self.create_profile_from_profile_template(profile_template, profile_name)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/task/init.py", line 164, in create_profile_from_profile_template
+    target = self.generate_target_from_input(prompts, initial_target)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/dbt/task/init.py", line 130, in generate_target_from_input
+    target[key] = click.prompt(
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/click/termui.py", line 164, in prompt
+    value = prompt_func(prompt)
+  File "/home/wanyua/Dev/Data_Engineering/real-time-data-streaming-pipepine/elt_pipeline/dbt-env/lib/python3.8/site-packages/click/termui.py", line 147, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+[0m19:54:20.656010 [debug] [MainThread]: Resource report: {"command_name": "init", "command_wall_clock_time": 42.840107, "process_user_time": 1.401162, "process_kernel_time": 0.048039, "process_mem_max_rss": "86988", "process_in_blocks": "2496", "process_out_blocks": "80", "command_success": false}
+[0m19:54:20.656973 [debug] [MainThread]: Command `dbt init` failed at 19:54:20.656777 after 42.84 seconds
+[0m19:54:20.657555 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928c48c190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928acaffa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f928ac59b80>]}
+[0m19:54:20.658253 [debug] [MainThread]: Flushing usage events
+[0m19:54:21.713062 [debug] [MainThread]: An error was encountered while trying to flush usage events
